@@ -1,0 +1,37 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "SET NODE_ENV=dev && nuxt dev --port 3001 --dotenv .env.dev",
+    "prod": "SET NODE_ENV=prod && nuxt dev --port 3001 --dotenv .env",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "parse": "npx prettier --write ."
+  },
+  "devDependencies": {
+    "@nuxtjs/eslint-config-typescript": "^12.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.48.2",
+    "eslint": "^8.32.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-config-standard-with-typescript": "^31.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-vue": "^9.9.0",
+    "nuxt": "^3.0.0",
+    "prettier": "^2.8.3",
+    "typescript": "*"
+  },
+  "dependencies": {
+    "@mdi/font": "^7.1.96",
+    "@pinia/nuxt": "^0.4.6",
+    "axios": "^1.2.3",
+    "check-if-word": "^1.2.1",
+    "check-word": "^1.1.0",
+    "pinia": "^2.0.29",
+    "sass": "^1.57.1",
+    "vue": "^3.2.45"
+  }
+}
