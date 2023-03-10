@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devServer: {
     port: 3001,
@@ -8,9 +7,19 @@ export default defineNuxtConfig({
     shim: false,
   },
 
-  srcDir: 'src/',
+  app: {
+    head: {
+      link: [
+        {
+          rel: 'icon',
+          type: 'image/x-icon',
+          href: '/favicon.ico',
+        },
+      ],
+    },
+  },
 
-  modules: ['@pinia/nuxt'],
+  modules: ['@pinia/nuxt', 'nuxt-icon'],
 
   runtimeConfig: {
     // The private keys which are only available within server-side
@@ -21,12 +30,17 @@ export default defineNuxtConfig({
     },
   },
 
+  plugins: ['~/plugins/vue-final-modal.ts'],
+
   css: [
     '@mdi/font/css/materialdesignicons.min.css',
     '~/utils/styles/main.scss',
+    'vue-final-modal/style.css',
   ],
 
-  build: {},
+  build: {
+    transpile: ['gsap'],
+  },
 
   vite: {
     define: {

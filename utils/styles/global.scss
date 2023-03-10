@@ -1,0 +1,81 @@
+// Global variables
+
+/* Colors */
+// Light theme
+$bprimary: #a6afff;
+$bprimary-shade: #7f8cfd8a;
+$bsecondary: #f7f7f7;
+$bdarker: #2b2b2b;
+$blighter: #e4e4e4;
+$bdanger: #d81616;
+$bwarning: #7bff47;
+$bsuccess: #3ab10a;
+$binfo: #8cc2ff;
+$binfo-shade: #8cc2ff8a;
+// Dark theme
+$bprimary-dark: #6b79ff;
+$bprimary-shade-dark: #2036f58a;
+$bsecondary-dark: #2b2b2b;
+$bdarker-dark: #f7f7f7;
+$blighter-dark: #2b2b2b;
+$bdanger-dark: #bb0e0e;
+$bwarning-dark: #59ec1f;
+$bsuccess-dark: #2a8e07;
+$binfo-dark: #949fff;
+$binfo-shade-dark: #949fff8a;
+
+.theme {
+  --primary: #{$bprimary};
+  --primary-shade: #{$bprimary-shade};
+  --secondary: #{$bsecondary};
+  --darker: #{$bdarker};
+  --lighter: #{$blighter};
+  --danger: #{$bdanger};
+  --warning: #{$bwarning};
+  --success: #{$bsuccess};
+  --info: #{$binfo};
+  --info-shade: #{$binfo-shade};
+  &.theme-dark {
+    --primary: #{$bprimary-dark};
+    --primary-shade: #{$bprimary-shade-dark};
+    --secondary: #{$bsecondary-dark};
+    --darker: #{$bdarker-dark};
+    --lighter: #{$blighter-dark};
+    --danger: #{$bdanger-dark};
+    --warning: #{$bwarning-dark};
+    --success: #{$bsuccess-dark};
+    --info: #{$binfo-dark};
+    --info-shade: #{$binfo-shade-dark};
+  }
+}
+
+$primary: var(--primary);
+$primary-shade: var(--primary-shade);
+$secondary: var(--secondary);
+$darker: var(--darker);
+$lighter: var(--lighter);
+$danger: var(--danger);
+$warning: var(--warning);
+$success: var(--success);
+$info: var(--info);
+$info-shade: var(--info-shade);
+
+/* Sizes */
+$box_lg: 9rem;
+$box_md: 7rem;
+$box_sm: 5rem;
+$box_xs: 3rem;
+
+.theme {
+  --box: 5rem;
+
+  @media (min-width: 425px) {
+    --box: 7rem;
+  }
+
+  @media (min-width: 768px) {
+    --box: 9rem;
+  }
+}
+
+$box: var(--box);
