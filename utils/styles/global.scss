@@ -4,7 +4,7 @@
 // Light theme
 $bprimary: #a6afff;
 $bprimary-shade: #7f8cfd8a;
-$bsecondary: #f7f7f7;
+$bsecondary: #ffd0f1;
 $bdarker: #2b2b2b;
 $blighter: #e4e4e4;
 $bdanger: #d81616;
@@ -79,3 +79,14 @@ $box_xs: 3rem;
 }
 
 $box: var(--box);
+
+@mixin grid($color) {
+  .grid {
+    border-style: dashed;
+    border-width: 0 2px 0 0;
+    border-color: $color;
+    &:last-child {
+      border: none;
+    }
+  }
+}

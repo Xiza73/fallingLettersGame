@@ -4,6 +4,9 @@
       v-for="(item, index) in wordArray"
       :key="index"
       class="item"
+      :class="{
+        grid: grid,
+      }"
       @click="!gamePaused && handleClick(index)"
     >
       {{ item }}
@@ -13,12 +16,17 @@
 
 <script setup lang="ts">
 import { useGameStore } from '../store/game';
+import { useSettings } from '../store/settings';
 
 const gameStore = useGameStore();
+const settings = useSettings();
+
 const { setLetter } = gameStore;
 
 const wordArray = computed(() => gameStore.wordArray);
 const gamePaused = computed(() => gameStore.gamePaused);
+
+const grid = computed(() => settings.grid);
 
 const handleClick = (index: number) => {
   setLetter('', index);
@@ -32,20 +40,19 @@ const handleClick = (index: number) => {
   align-items: center;
   height: $box;
   background-color: transparent;
-}
-
-.item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: $box;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.item:hover {
-  background-color: #000;
-  color: #fff;
+  @include grid($info);
+  .item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: $box;
+    border-radius: 8px;
+    cursor: pointer;
+    &:hover {
+      background-color: #000;
+      color: #fff;
+    }
+  }
 }
 </style>

@@ -10,9 +10,16 @@ const date = new Date().getUTCFullYear();
 
 <style scoped lang="scss">
 footer {
-  background-color: $darker;
+  background-color: darken($bsecondary, 10%);
   color: $lighter;
+  font-weight: 600;
   padding: 1rem;
   text-align: center;
+}
+.theme-dark {
+  footer {
+    background-color: darken($bsecondary-dark, 9%);
+    color: $darker;
+  }
 }
 </style>

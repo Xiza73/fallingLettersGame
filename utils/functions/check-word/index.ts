@@ -1,7 +1,7 @@
 export const checkWord = (
   language: 'de' | 'en' | 'es' | 'fr' | null = 'es'
-) => ({
-  check: async (word: string) => {
+): CheckWord => ({
+  check: async (word: string): Promise<boolean> => {
     const data = await import(`./words/${language}.txt`);
     const content = await fetch(data.default);
     const text = await content.text();

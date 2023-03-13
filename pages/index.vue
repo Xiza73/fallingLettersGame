@@ -35,18 +35,24 @@
 import { PageMeta } from '#app';
 import { frontTransition } from '../utils/functions/transitionConfig';
 import { ModalsContainer, useModal } from 'vue-final-modal';
-import TutorialModal from '../components/Home/TutorialModal.vue';
+import CustomModal from '../components/CustomModal.vue';
 import { useSettings } from '../store/settings';
 
 const settings = useSettings();
 const content = computed(() => settings.content);
 
 const { open: openModal, close } = useModal({
-  component: TutorialModal,
+  component: CustomModal,
   attrs: {
     onConfirm() {
       close();
     },
+    onCancel() {
+      close();
+    },
+    title: computed(() => content.value.tutorial.title),
+    content: computed(() => content.value.tutorial.content.split('|')),
+    confirm: computed(() => content.value.tutorial.button),
   },
 });
 
@@ -78,15 +84,24 @@ main {
     place-items: center;
     width: 100%;
     .img {
-      background-image: url('../assets/cover.png');
-      background-size: cover;
+      background-image: url('../assets/logo_light.svg');
+      background-repeat: no-repeat;
+      background-size: contain;
       background-position: center;
       border-radius: 1rem;
-      border: 1px solid #ccc;
       width: 250px;
       height: 250px;
       max-width: 400px;
-      max-height: 400px;
+    }
+  }
+}
+
+.theme-dark {
+  main {
+    .cover {
+      .img {
+        background-image: url('../assets/logo_dark.svg');
+      }
     }
   }
 }

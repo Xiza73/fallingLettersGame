@@ -1,11 +1,11 @@
 {
   "private": true,
   "name": "falling-letters",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "scripts": {
     "build": "nuxt build",
-    "dev": "SET NODE_ENV=development && nuxt dev --port 3001 --dotenv .env.dev",
-    "prod": "SET NODE_ENV=prod && nuxt dev --port 3001 --dotenv .env",
+    "dev": "SET NODE_ENV=development&& nuxt dev --port 3001 --dotenv .env.dev",
+    "prod": "SET NODE_ENV=production&& nuxt dev --port 3001 --dotenv .env",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -23,7 +23,7 @@
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-vue": "^9.9.0",
-    "nuxt": "3.0.0",
+    "nuxt": "3.2.3",
     "nuxt-icon": "^0.3.2",
     "prettier": "^2.8.3",
     "typescript": "*"

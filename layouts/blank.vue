@@ -18,12 +18,6 @@ const darkMode = computed(() => settings.darkMode);
 
 <style scoped lang="scss">
 .layout {
-  display: grid;
   grid-template-rows: 1fr auto;
-  height: 100vh;
-  width: 100%;
-  position: relative;
-  z-index: 0;
-  background-color: $secondary;
 }
 </style>

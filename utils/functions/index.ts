@@ -37,10 +37,31 @@ export const getRandomArray = (
   return array;
 };
 
-const dictionary = checkWord('es');
-// checkWord in spanish: if input is 'hola', validate: 'hola', 'hóla', 'holá', 'hólá'; if input is 'no', validate: 'no', 'nó', 'ñó', 'ño'
-export const validateWord = async (word: string): Promise<boolean> =>
-  await dictionary.check(word.toLowerCase());
+export const getSequenceArray = (
+  pivot: number,
+  options: {
+    length: number;
+    factor?: number;
+  } = { length: 1 }
+) => {
+  const { length, factor = 1 } = options;
+  const array: number[] = [];
+  for (let i = 0; i < length; i++) {
+    array.push(pivot + i * factor);
+  }
+  return array;
+};
+
+export const getRangeSpeed = (speed: number) => 6 - (speed - 1);
+
+const esDictionary = checkWord('es');
+const enDictionary = checkWord('en');
+
+export const validateWordEs = async (word: string): Promise<boolean> =>
+  await esDictionary.check(word.toLowerCase());
+
+export const validateWordEn = async (word: string): Promise<boolean> =>
+  await enDictionary.check(word.toLowerCase());
 
 export const getFromStorage = (variable: string): string | false | null =>
   process.client && localStorage.getItem(variable);

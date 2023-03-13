@@ -28,6 +28,19 @@ a {
   text-decoration: none;
   color: inherit;
 }
+button {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.layout {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  z-index: 0;
+  background-color: $secondary;
+}
 
 .bg-primary {
   background-color: $primary;

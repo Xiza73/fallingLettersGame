@@ -56,7 +56,22 @@
       </div>
       <div class="game__board">
         <div class="rain-content">
-          <Rail v-for="rail in rails" :key="rail.id" :rail="rail" />
+          <Rail
+            v-for="rail in rails"
+            :key="rail.id"
+            :rail="rail"
+            :class="{
+              grid: grid,
+            }"
+          />
+          <EmptyRail
+            v-for="i in cols"
+            :key="i"
+            v-if="!gameStarted"
+            :class="{
+              grid: grid,
+            }"
+          />
         </div>
         <div class="solve-content">
           <SolveBar />
@@ -81,7 +96,7 @@ import { useSettings } from '../store/settings';
 import { frontTransition } from '../utils/functions/transitionConfig';
 import { PageMeta } from '#app';
 import { ModalsContainer, useModal } from 'vue-final-modal';
-import StopGameModal from '../components/Game/StopGameModal.vue';
+import CustomModal from '../components/CustomModal.vue';
 import { useRails } from '../store/rails';
 
 const gameStore = useGameStore();
@@ -110,10 +125,11 @@ const score = computed(() => gameStore.score);
 
 const rails = computed(() => railStore.rails);
 
-const cols = computed(() => settings.columns);
 const content = computed(() => settings.content);
+const grid = computed(() => settings.grid);
+const cols = computed(() => settings.columns);
 
-initWordArray(cols.value);
+initWordArray();
 
 const play = () => {
   initRails();
@@ -121,7 +137,7 @@ const play = () => {
 };
 
 const { open: openStopModal, close } = useModal({
-  component: StopGameModal,
+  component: CustomModal,
   attrs: {
     onConfirm() {
       stopGame();
@@ -132,11 +148,14 @@ const { open: openStopModal, close } = useModal({
       resumeGame();
       close();
     },
+    content: computed(() => content.value.game.stopMessage),
+    confirm: computed(() => content.value.general.yes),
+    cancel: computed(() => content.value.general.no),
   },
 });
 
 const { open: openRestartModal, close: closeRestartModal } = useModal({
-  component: StopGameModal,
+  component: CustomModal,
   attrs: {
     onConfirm() {
       resetGame();
@@ -147,6 +166,9 @@ const { open: openRestartModal, close: closeRestartModal } = useModal({
       resumeGame();
       closeRestartModal();
     },
+    content: computed(() => content.value.game.restartMessage),
+    confirm: computed(() => content.value.general.yes),
+    cancel: computed(() => content.value.general.no),
   },
 });
 
@@ -264,6 +286,7 @@ definePageMeta({
       .rain-content {
         display: flex;
         position: relative;
+        @include grid($primary);
       }
       .solve-content {
         display: flex;
@@ -313,22 +336,6 @@ definePageMeta({
     }
   }
 }
-
-.check_button {
-  font-size: 1.5rem;
-  font-weight: 500;
-  text-align: center;
-  color: white;
-  margin-bottom: 1rem;
-  width: $box;
-  height: $box;
-  position: absolute;
-  border: 1.5px solid black;
-  border-radius: 10px;
-  cursor: pointer;
-  left: calc(100% + 2rem);
-  background-color: green;
-}
 .end_game {
   display: flex;
   flex-direction: column;
@@ -344,22 +351,60 @@ definePageMeta({
   h1 {
     font-size: 3rem;
     font-weight: 700;
+    margin-bottom: 1rem;
+    color: white;
+  }
+  h2 {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
     color: white;
   }
   .restart_button {
     font-size: 1.5rem;
-    font-weight: 500;
     text-align: center;
-    color: white;
-    margin: 1rem 0;
-    width: $box;
-    height: 40px;
     position: relative;
-    border: 1.5px solid black;
     border-radius: 15px;
     cursor: pointer;
-    margin-right: 1rem;
-    background-color: green;
+    border: 0px;
+    color: rgb(2, 83, 43);
+    font-weight: 600;
+    padding: 1rem 1.8rem;
+    background: linear-gradient(
+      to bottom right,
+      rgb(200, 255, 221),
+      rgb(96, 187, 135),
+      rgb(38, 155, 89)
+    );
+    &:hover {
+      background: linear-gradient(
+        to bottom right,
+        rgb(38, 155, 89),
+        rgb(96, 187, 135),
+        rgb(200, 255, 221)
+      );
+      color: rgb(2, 100, 51);
+      font-weight: 700;
+    }
+    &:active {
+      background: linear-gradient(
+        to bottom right,
+        rgb(200, 255, 221),
+        rgb(96, 187, 135),
+        rgb(38, 155, 89)
+      );
+    }
+  }
+  @media (min-width: 768px) {
+    h1 {
+      font-size: 4rem;
+    }
+    h2 {
+      font-size: 2.5rem;
+    }
+    .restart_button {
+      font-size: 2rem;
+    }
   }
 }
 </style>

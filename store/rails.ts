@@ -1,5 +1,9 @@
 import { defineStore } from 'pinia';
-import { getRandomArray } from '~~/utils/functions';
+import {
+  getRandomArray,
+  getRangeSpeed,
+  getSequenceArray,
+} from '~~/utils/functions';
 import { useGameStore } from './game';
 import { useSettings } from './settings';
 
@@ -12,15 +16,14 @@ export const useRails = defineStore('rails', () => {
   const initRails = () => {
     rails.value = [];
 
-    const initialTimeouts = getRandomArray(0, 10, {
+    const initialTimeouts = getRandomArray(0, 1000, {
       length: settings.columns,
       unique: true,
-      factor: 100,
     });
-    const speed = getRandomArray(23, 30, {
+    const maxSpeed = getRangeSpeed(settings.speed);
+    const speed = getSequenceArray(maxSpeed, {
       length: settings.columns,
-      unique: true,
-      factor: 0.2,
+      factor: -0.12,
     });
 
     initialTimeouts.sort(() => Math.random() - 0.5);
@@ -29,7 +32,7 @@ export const useRails = defineStore('rails', () => {
     for (let i = 0; i < settings.columns; i++) {
       rails.value.push({
         id: i,
-        timeout: initialTimeouts[i],
+        initItem: initialTimeouts[i],
         seconds: speed[i],
         items: [],
       });

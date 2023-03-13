@@ -45,6 +45,7 @@ type LanguageStrings = {
     endGame: string;
     reset: string;
     stopMessage: string;
+    restartMessage: string;
   }
   general: {
     yes: string;

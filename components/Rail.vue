@@ -28,17 +28,20 @@ const props = defineProps<{
 const gameStore = useGameStore();
 const railStore = useRails();
 
-const { setLetter, stopGame } = gameStore;
+const { setLetter } = gameStore;
 const { deleteItem, setItemTimeout, clearItemsTimeouts } = railStore;
 
 const gamePaused = computed(() => gameStore.gamePaused);
 
 const { rail } = props;
-const { id, seconds, timeout, items } = rail;
+const { id, seconds, initItem, items } = rail;
 
 const pausedAt = ref<number>(0);
 const resumePeriod = ref<number>(0);
 const railTimeout = ref<NodeJS.Timeout>();
+
+const putTimeout = computed(() => (seconds * 1000) / 7);
+const putInterval = computed(() => (seconds * 1000) / 3);
 
 const handleClick = (item: Letter) => {
   setLetter(item.name, id);
@@ -67,14 +70,14 @@ const putItem = () => {
     } while (item?.name === items[items.length - 1]?.name);
     rail.items.push(item);
     deleteItemAt(item);
-  }, getRandom(0, 1000));
+  }, getRandom(0, putTimeout.value));
 };
 
 let interval: NodeJS.Timer;
 railTimeout.value = setTimeout(() => {
   putItem();
-  interval = setInterval(putItem, 2000);
-}, timeout);
+  interval = setInterval(putItem, putInterval.value);
+}, initItem);
 
 watch(
   () => gamePaused.value,
@@ -91,8 +94,8 @@ watch(
       });
       railTimeout.value = setTimeout(() => {
         putItem();
-        interval = setInterval(putItem, 2000);
-      }, 1000);
+        interval = setInterval(putItem, putInterval.value);
+      }, putTimeout.value);
       pausedAt.value = 0;
     }
   }

@@ -20,7 +20,7 @@ type Size = 'sm' | 'md' | 'lg';
 
 type Rail = {
   id: number;
-  timeout: number;
+  initItem: number;
   seconds: number;
   items: Letter[];
 };
@@ -29,3 +29,7 @@ type Word = {
   name: string;
   points: number;
 };
+
+type CheckWord = {
+  check: (word: string) => Promise<boolean>;
+}

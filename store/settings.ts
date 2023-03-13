@@ -11,7 +11,7 @@ import {
 
 export const useSettings = defineStore('settings', () => {
   const darkMode: Ref<boolean> = ref(true);
-  const language: Ref<Language> = ref('en');
+  const language: Ref<Language> = ref('es');
   const content: Ref<LanguageStrings> = ref(english);
   const columns: Ref<number> = ref(6);
   const speed: Ref<number> = ref(3);
@@ -78,16 +78,7 @@ export const useSettings = defineStore('settings', () => {
   };
 
   watch(
-    [
-      darkMode,
-      language,
-      columns,
-      speed,
-      grid,
-      autocomplete,
-      lifes,
-      gameMode,
-    ],
+    [darkMode, language, columns, speed, grid, autocomplete, lifes, gameMode],
     ([
       darkMode,
       language,
@@ -113,7 +104,8 @@ export const useSettings = defineStore('settings', () => {
   const setInitialConfig = () => {
     darkMode.value = getFromStorage('darkMode') === 'true' ? true : false;
     language.value = (getFromStorage('language') as Language) || 'en';
-    content.value = language.value === 'en' ? english : spanish;
+    content.value =
+      (getFromStorage('language') as Language) === 'en' ? english : spanish;
     columns.value = parseInt(getFromStorage('columns') || '5');
     speed.value = parseInt(getFromStorage('speed') || '3');
     grid.value = getFromStorage('grid') === 'true' ? true : false;

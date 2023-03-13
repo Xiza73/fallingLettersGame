@@ -1,7 +1,7 @@
+import { validateWordEs, validateWordEn } from './../utils/functions/index';
 import { Ref } from 'nuxt/dist/app/compat/capi';
 import { defineStore } from 'pinia';
 import { TIME_LIMIT } from '~~/utils/constants';
-import { getRandomArray, validateWord } from '../utils/functions';
 import { useRails } from './rails';
 import { useSettings } from './settings';
 
@@ -25,7 +25,7 @@ export const useGameStore = defineStore('game', () => {
     gameStarted.value = true;
     gamePaused.value = false;
     gameStopped.value = false;
-    initWordArray(settings.columns);
+    initWordArray();
     timeLeft.value = TIME_LIMIT;
     endGame.value = false;
     score.value = 0;
@@ -76,7 +76,7 @@ export const useGameStore = defineStore('game', () => {
     words.value = [];
     word.value = '';
     lastWord.value = '';
-    wordArray.value = [];
+    initWordArray();
   };
 
   const decreaseTime = () => {
@@ -99,17 +99,20 @@ export const useGameStore = defineStore('game', () => {
     score.value += points;
   };
 
-  const initWordArray = (length: number) => {
-    wordArray.value = Array(length).fill('');
+  const initWordArray = () => {
+    wordArray.value = Array(settings.columns).fill('');
   };
 
   const checkWord = async (newWord?: string) => {
     const insertWord = newWord || word.value;
-    const valid = await validateWord(insertWord);
+    const valid =
+      settings.language === 'es'
+        ? await validateWordEs(insertWord)
+        : await validateWordEn(insertWord);
     if (valid) {
       if (words.value.find((item) => item.name === insertWord)) return;
       addWord(insertWord);
-      initWordArray(wordArray.value.length);
+      initWordArray();
     }
   };
 
